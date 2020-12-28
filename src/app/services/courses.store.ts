@@ -1,10 +1,12 @@
-import {Injectable} from '@angular/core';
-import {BehaviorSubject, Observable, throwError} from 'rxjs';
-import {Course, sortCoursesBySeqNo} from '../model/course';
-import {catchError, map, shareReplay, tap} from 'rxjs/operators';
-import {HttpClient} from '@angular/common/http';
-import {LoadingService} from '../loading/loading.service';
-import {MessagesService} from '../messages/messages.service';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
+import { Course, sortCoursesBySeqNo } from '../model/course';
+import { catchError, map, shareReplay, tap } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
+import { LoadingService } from '../loading/loading.service';
+import { MessagesService } from '../messages/messages.service';
+import { HttpApiService } from './http-api.service';
+import { CoursesService } from './courses.service';
 
 
 @Injectable({
@@ -14,10 +16,11 @@ export class CoursesStore {
 
     private subject = new BehaviorSubject<Course[]>([]);
 
-    courses$ : Observable<Course[]> = this.subject.asObservable();
+    courses$: Observable<Course[]> = this.subject.asObservable();
 
     constructor(
-        private http:HttpClient,
+        private http: HttpClient,
+        private courseService: CoursesService,
         private loading: LoadingService,
         private messages: MessagesService) {
 
@@ -27,9 +30,8 @@ export class CoursesStore {
 
     private loadAllCourses() {
 
-        const loadCourses$ = this.http.get<Course[]>('/api/courses')
+        const loadCourses$ = this.courseService.loadAllCourses()
             .pipe(
-                map(response => response["payload"]),
                 catchError(err => {
                     const message = "Could not load courses";
                     this.messages.showErrors(message);
@@ -44,15 +46,15 @@ export class CoursesStore {
 
     }
 
-    saveCourse(courseId:string, changes: Partial<Course>): Observable<any> {
+    saveCourse(courseId: string, changes: Partial<Course>): Observable<any> {
 
         const courses = this.subject.getValue();
 
         const index = courses.findIndex(course => course.id == courseId);
 
         const newCourse: Course = {
-          ...courses[index],
-          ...changes
+            ...courses[index],
+            ...changes
         };
 
         const newCourses: Course[] = courses.slice(0);

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { environment } from '../../environments/environment';
-import { catchError } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 
 import * as queryString from 'query-string';
 
@@ -25,7 +25,7 @@ export class HttpApiService {
         .get<payloadT>(`${environment.baseUrl}/${endPointUrl}`, {
           params,
         })
-        .pipe(catchError((error) => of(error)))
+        .pipe(map(response => response["payload"]), catchError((error) => of(error)))
         .subscribe((res: any) => {
           res?.error ? observer.error(res.error) : observer.next(res);
           observer.complete();
