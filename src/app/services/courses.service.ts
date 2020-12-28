@@ -1,28 +1,29 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {Course} from '../model/course';
-import {Observable} from 'rxjs';
-import {map, shareReplay} from 'rxjs/operators';
-import {Lesson} from '../model/lesson';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Course } from '../model/course';
+import { Observable } from 'rxjs';
+import { map, shareReplay } from 'rxjs/operators';
+import { Lesson } from '../model/lesson';
+import { HttpApiService } from './http-api.service';
 
 
 @Injectable({
-    providedIn:'root'
+    providedIn: 'root'
 })
 export class CoursesService {
 
-    constructor(private http:HttpClient) {
+    constructor(private http: HttpClient, private apiService: HttpApiService) {
 
     }
 
-    loadCourseById(courseId:number) {
-       return this.http.get<Course>(`/api/courses/${courseId}`)
+    loadCourseById(courseId: number) {
+        return this.http.get<Course>(`/api/courses/${courseId}`)
             .pipe(
-              shareReplay()
+                shareReplay()
             );
     }
 
-    loadAllCourseLessons(courseId:number): Observable<Lesson[]> {
+    loadAllCourseLessons(courseId: number): Observable<Lesson[]> {
         return this.http.get<Lesson[]>('/api/lessons', {
             params: {
                 pageSize: "10000",
@@ -35,16 +36,12 @@ export class CoursesService {
             );
     }
 
-    loadAllCourses(): Observable<Course[]> {
-        return this.http.get<Course[]>("/api/courses")
-            .pipe(
-                map(res => res["payload"]),
-                shareReplay()
-            );
-    }
+
+    loadAllCourses = (): Observable<Course[]> => this.apiService.get<Course[]>('courses');
 
 
-    saveCourse(courseId:string, changes: Partial<Course>):Observable<any> {
+
+    saveCourse(courseId: string, changes: Partial<Course>): Observable<any> {
         return this.http.put(`/api/courses/${courseId}`, changes)
             .pipe(
                 shareReplay()
@@ -52,7 +49,7 @@ export class CoursesService {
     }
 
 
-    searchLessons(search:string): Observable<Lesson[]> {
+    searchLessons(search: string): Observable<Lesson[]> {
         return this.http.get<Lesson[]>('/api/lessons', {
             params: {
                 filter: search,
