@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
-import { Course, sortCoursesBySeqNo } from '../model/course';
+import { Course, sortCoursesBySeqNo, sortCourseByPrice } from '../model/course';
 import { catchError, map, shareReplay, tap } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { LoadingService } from '../loading/loading.service';
@@ -80,7 +80,7 @@ export class CoursesStore {
             .pipe(
                 map(courses =>
                     courses.filter(course => course.category == category)
-                        .sort(sortCoursesBySeqNo)
+                        .sort(sortCourseByPrice)
                 )
             )
     }

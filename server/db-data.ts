@@ -24,7 +24,7 @@ export const COURSES: any = {
     lessonsCount: 10,
     seqNo: 2,
     url: 'rxjs-course',
-    price: 50
+    price: 55
   },
 
   4: {
@@ -37,7 +37,7 @@ export const COURSES: any = {
     seqNo: 1,
     url: 'ngrx-course',
     promo: false,
-    price: 50
+    price: 40
   },
 
 
@@ -50,7 +50,7 @@ export const COURSES: any = {
     category: 'BEGINNER',
     seqNo: 3,
     url: 'angular-core-course',
-    price: 50
+    price: 30
   },
 
 
@@ -78,7 +78,7 @@ export const COURSES: any = {
     url: 'angular-testing-course',
     lessonsCount: 10,
     promo: false,
-    price: 50
+    price: 80
   },
 
 
@@ -103,7 +103,7 @@ export const COURSES: any = {
     category: 'BEGINNER',
     seqNo: 7,
     url: 'stripe-course',
-    price: 50
+    price: 10
   },
 
 
@@ -117,7 +117,7 @@ export const COURSES: any = {
     seqNo: 8,
     url: 'nestjs-course',
     promo: false,
-    price: 50
+    price: 90
   },
 
 
@@ -144,7 +144,7 @@ export const COURSES: any = {
     lessonsCount: 8,
     seqNo: 10,
     url: 'angular-pwa-course',
-    price: 50
+    price: 80
   },
 
   8: {
@@ -156,7 +156,7 @@ export const COURSES: any = {
     category: 'ADVANCED',
     seqNo: 11,
     url: 'angular-advanced-course',
-    price: 50
+    price: 60
   },
 
   9: {
@@ -168,7 +168,7 @@ export const COURSES: any = {
     category: 'BEGINNER',
     seqNo: 12,
     url: 'typescript-course',
-    price: 50
+    price: 60
   },
 
   11: {
@@ -485,7 +485,7 @@ export const LESSONS = {
   },
 
 
-// Angular Testing Course
+  // Angular Testing Course
 
   40: {
     id: 40,
