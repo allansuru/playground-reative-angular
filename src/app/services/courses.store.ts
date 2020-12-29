@@ -63,24 +63,17 @@ export class CoursesStore {
 
         this.subject.next(newCourses);
 
-        return this.http.put(`/api/courses/${courseId}`, changes)
-            .pipe(
-                catchError(err => {
-                    const message = "Could not save course";
-                    console.log(message, err);
-                    this.messages.showErrors(message);
-                    return throwError(err);
-                }),
-                shareReplay()
-            );
+
+        return this.courseService.saveCourse(courseId, changes);
     }
 
     filterByCategory(category: string): Observable<Course[]> {
         return this.courses$
             .pipe(
-                map(courses =>
-                    courses.filter(course => course.category == category)
-                        .sort(sortCourseByPrice)
+                map(courses => {
+                    return courses.filter(course => course.category == category)
+                        .sort(sortCourseByPrice);
+                }
                 )
             )
     }

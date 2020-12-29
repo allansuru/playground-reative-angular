@@ -1,6 +1,6 @@
-import {Injectable} from '@angular/core';
-import {BehaviorSubject, Observable} from 'rxjs';
-import {filter} from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable, of } from 'rxjs';
+import { filter } from 'rxjs/operators';
 
 
 @Injectable()
@@ -15,6 +15,8 @@ export class MessagesService {
 
     showErrors(...errors: string[]) {
         this.subject.next(errors);
+        return of(errors);
     }
+
 
 }

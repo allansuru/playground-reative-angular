@@ -11,11 +11,12 @@ import {
     concatMap,
     switchMap,
     withLatestFrom,
-    concatAll, shareReplay, catchError
+    concatAll, shareReplay, catchError, takeLast
 } from 'rxjs/operators';
-import { merge, fromEvent, Observable, concat, throwError, combineLatest } from 'rxjs';
+import { merge, fromEvent, Observable, concat, throwError, combineLatest, forkJoin } from 'rxjs';
 import { Lesson } from '../model/lesson';
 import { CoursesService } from '../services/courses.service';
+import { LoadingService } from '../loading/loading.service';
 
 
 interface CourseData {
@@ -36,7 +37,7 @@ export class CourseComponent implements OnInit {
 
 
     constructor(private route: ActivatedRoute,
-        private coursesService: CoursesService) {
+        private coursesService: CoursesService, private loading: LoadingService) {
 
 
     }
@@ -55,16 +56,19 @@ export class CourseComponent implements OnInit {
                 startWith([])
             );
 
-        this.data$ = combineLatest([course$, lessons$])
+        this.data$ = forkJoin([course$, lessons$])
             .pipe(
-                map(([course, lessons]) => ({
-                    course,
-                    lessons
-
-                })),
+                map(([course, lessons]) =>
+                    ({
+                        course,
+                        lessons
+                    })
+                ),
                 tap(console.log)
             );
 
+        this.loading.showLoaderUntilCompleted(this.data$)
+            .subscribe();
 
     }
 
