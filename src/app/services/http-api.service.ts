@@ -32,4 +32,19 @@ export class HttpApiService {
         });
     });
   }
+
+  put<payloadT>(endPointUrl: string, payload: any): Observable<any> {
+    return new Observable((observer) => {
+      this.http
+        .put<payloadT>(
+          `${environment.baseUrl}/${endPointUrl}`,
+          payload,
+        )
+        .pipe(catchError((error) => of(error)))
+        .subscribe((res: any) => {
+          res?.error ? observer.error(res.error) : observer.next(res);
+          observer.complete();
+        });
+    });
+  }
 }
