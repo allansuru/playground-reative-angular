@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Course } from '../model/course';
 import { Observable } from 'rxjs';
 import { CoursesStore } from '../services/courses.store';
+import { tap } from 'rxjs/operators';
 
 
 @Component({
@@ -27,6 +28,7 @@ export class HomeComponent implements OnInit {
   reloadCourses() {
 
     this.beginnerCourses$ = this.coursesStore.filterByCategory("BEGINNER");
+
 
     this.advancedCourses$ = this.coursesStore.filterByCategory("ADVANCED");
   }

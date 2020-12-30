@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { catchError, map, shareReplay } from 'rxjs/operators';
 
 import * as queryString from 'query-string';
 import { MessagesService } from '../messages/messages.service';
+import { LoadingService } from '../loading/loading.service';
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +27,7 @@ export class HttpApiService {
         .get<payloadT>(`${environment.baseUrl}/${endPointUrl}`, {
           params,
         })
-        .pipe(map(response => response["payload"]), shareReplay(), catchError((error) => of(error)))
+        .pipe(map(response => response["payload"]), shareReplay(), catchError((error) => this.handlerError(error)))
         .subscribe((res: any) => {
           res?.error ? observer.error(res.error) : observer.next(res);
           observer.complete();
@@ -42,12 +43,17 @@ export class HttpApiService {
           payload,
         )
         .pipe(catchError((error) =>
-          this.messages.showErrors(error.statusText)
+          this.handlerError(error)
         ))
         .subscribe((res: any) => {
           res?.error ? observer.error(res.error) : observer.next(res);
           observer.complete();
         });
     });
+  }
+
+  private handlerError(error): Observable<any> {
+    this.messages.showErrors(error.statusText);
+    return of(error);
   }
 }

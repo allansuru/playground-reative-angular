@@ -32,13 +32,9 @@ export class CoursesStore {
 
         const loadCourses$ = this.courseService.loadAllCourses()
             .pipe(
-                catchError(err => {
-                    const message = "Could not load courses";
-                    this.messages.showErrors(message);
-                    console.log(message, err);
-                    return throwError(err);
-                }),
-                tap(courses => this.subject.next(courses))
+                tap(courses => {
+                    return this.subject.next(courses);
+                })
             );
 
         this.loading.showLoaderUntilCompleted(loadCourses$)
