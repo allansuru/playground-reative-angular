@@ -42,6 +42,23 @@ export class HttpApiService {
           `${environment.baseUrl}/${endPointUrl}`,
           payload,
         )
+        .pipe(shareReplay(), catchError((error) =>
+          this.handlerError(error)
+        ))
+        .subscribe((res: any) => {
+          res?.error ? observer.error(res.error) : observer.next(res);
+          observer.complete();
+        });
+    });
+  }
+
+  post<payloadT>(endPointUrl: string, payload: any): Observable<any> {
+    return new Observable((observer) => {
+      this.http
+        .post<payloadT>(
+          `${environment.baseUrl}/${endPointUrl}`,
+          payload,
+        )
         .pipe(catchError((error) =>
           this.handlerError(error)
         ))
@@ -52,8 +69,8 @@ export class HttpApiService {
     });
   }
 
-  private handlerError(error): Observable<any> {
-    this.messages.showErrors(error.statusText);
+  private handlerError({ error }): Observable<any> {
+    this.messages.showErrors(error);
     return of(error);
   }
 }

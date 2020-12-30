@@ -1,8 +1,9 @@
-import {Inject, Injectable} from '@angular/core';
-import {BehaviorSubject, Observable} from 'rxjs';
-import {User} from '../model/user';
-import {map, shareReplay, tap} from 'rxjs/operators';
-import {HttpClient} from '@angular/common/http';
+import { Inject, Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { User } from '../model/user';
+import { map, shareReplay, tap } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
+import { HttpApiService } from './http-api.service';
 
 const AUTH_DATA = "auth_data";
 
@@ -13,12 +14,12 @@ export class AuthStore {
 
     private subject = new BehaviorSubject<User>(null);
 
-    user$ : Observable<User> = this.subject.asObservable();
+    user$: Observable<User> = this.subject.asObservable();
 
-    isLoggedIn$ : Observable<boolean>;
-    isLoggedOut$ : Observable<boolean>;
+    isLoggedIn$: Observable<boolean>;
+    isLoggedOut$: Observable<boolean>;
 
-    constructor(private http: HttpClient) {
+    constructor(private api: HttpApiService) {
 
         this.isLoggedIn$ = this.user$.pipe(map(user => !!user));
 
@@ -32,14 +33,15 @@ export class AuthStore {
 
     }
 
-    login(email:string, password:string): Observable<User> {
-        return this.http.post<User>("/api/login", {email, password})
+
+    login(email: string, password: string): Observable<User> {
+        return this.api.post<User>("login", { email, password })
             .pipe(
                 tap(user => {
+                    debugger
                     this.subject.next(user);
                     localStorage.setItem(AUTH_DATA, JSON.stringify(user));
                 }),
-                shareReplay()
             );
     }
 
@@ -47,6 +49,4 @@ export class AuthStore {
         this.subject.next(null);
         localStorage.removeItem(AUTH_DATA);
     }
-
-
 }
