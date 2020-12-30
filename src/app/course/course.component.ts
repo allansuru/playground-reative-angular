@@ -37,7 +37,7 @@ export class CourseComponent implements OnInit {
 
 
     constructor(private route: ActivatedRoute,
-        private coursesService: CoursesService, private loading: LoadingService) {
+        private coursesService: CoursesService, ) {
 
 
     }
@@ -67,8 +67,6 @@ export class CourseComponent implements OnInit {
                 tap(console.log)
             );
 
-        this.loading.showLoaderUntilCompleted(this.data$)
-            .subscribe();
 
     }
 

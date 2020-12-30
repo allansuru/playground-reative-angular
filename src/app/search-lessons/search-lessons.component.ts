@@ -31,7 +31,7 @@ export class SearchLessonsComponent implements OnInit {
 
   activeLesson: Lesson;
 
-  constructor(private coursesService: CoursesService, private loadingService: LoadingService) {
+  constructor(private coursesService: CoursesService) {
 
 
   }
@@ -44,7 +44,6 @@ export class SearchLessonsComponent implements OnInit {
   onSearch(search: string) {
     this.searchResults$ = this.coursesService.searchLessons(search);
 
-    this.loadingService.showLoaderUntilCompleted(this.searchResults$).subscribe();
 
   }
 

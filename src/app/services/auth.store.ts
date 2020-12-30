@@ -38,7 +38,6 @@ export class AuthStore {
         return this.api.post<User>("login", { email, password })
             .pipe(
                 tap(user => {
-                    debugger
                     this.subject.next(user);
                     localStorage.setItem(AUTH_DATA, JSON.stringify(user));
                 }),

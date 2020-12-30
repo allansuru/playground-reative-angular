@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+
 import { Course } from '../model/course';
 import { Observable } from 'rxjs';
-import { map, shareReplay } from 'rxjs/operators';
 import { Lesson } from '../model/lesson';
 import { HttpApiService } from './http-api.service';
 
@@ -12,7 +11,7 @@ import { HttpApiService } from './http-api.service';
 })
 export class CoursesService {
 
-    constructor(private http: HttpClient, private apiService: HttpApiService) {
+    constructor(private apiService: HttpApiService) {
 
     }
 
@@ -37,18 +36,12 @@ export class CoursesService {
     }
 
 
-
     searchLessons(search: string): Observable<Lesson[]> {
-        return this.http.get<Lesson[]>('/api/lessons', {
-            params: {
-                filter: search,
-                pageSize: "100"
-            }
+        return this.apiService.get<Lesson[]>('lessons', {
+            filter: search,
+            pageSize: "100"
+
         })
-            .pipe(
-                map(res => res["payload"]),
-                shareReplay()
-            );
     }
 
 
