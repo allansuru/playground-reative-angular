@@ -1,11 +1,48 @@
 <content-card [title]="'Novo registro'" [subtitle]="'Registre aqui seu novo usuário'">
     <div menu-buttons>
-        <button matTooltip="Editar opção" mat-button color="primary">
+        <button matTooltip="Editar opção" mat-button color="primary" [disabled]="form.invalid || form.pristine">
             <mat-icon class="mr-2">add</mat-icon>
             <span> Adicionar item</span>
         </button>
     </div>
     <div main-content>
+
+        <form [formGroup]="form" fxFlex fxLayout="column">
+
+            <mat-form-field appearance="outline">
+                <mat-label>Email</mat-label>
+                <input matInput type="email" placeholder="Email" formControlName="email">
+                <mat-error *ngIf="form.get('email').hasError('required')"> email obrigatório</mat-error>
+                <mat-error *ngIf="form.get('email').hasError('email')">
+                    Por favor, entre com um email válido
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Password</mat-label>
+                <input matInput type="password" placeholder="Password" formControlName="password">
+                <mat-error> password obrigatório</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Password (Confirm)</mat-label>
+                <input matInput type="password" placeholder="Password" formControlName="passwordConfirm">
+                <mat-error *ngIf="
+                form.get('passwordConfirm').hasError('required')
+              "> A confirmação do password é obrigatório</mat-error>
+                <mat-error *ngIf="
+                  !form
+                    .get('passwordConfirm')
+                    .hasError('required') &&
+                  form
+                    .get('passwordConfirm')
+                    .hasError('passwordsNotMatching')
+                ">
+                    As senhas devem corresponder
+                </mat-error>
+            </mat-form-field>
+
+        </form>
 
     </div>
 

@@ -1,4 +1,4 @@
-<mat-card [ngClass]="{'mat-elevation-z0': !isShowShadow}" class="mb-4">
+<mat-card [ngClass]="{'mat-elevation-z0': !isShowShadow}" class="mb-4" [@pageAnimations]="loading? 'initial' : 'final'">
     <mat-card-title *ngIf="title">
         <div fxFlex fxLayout="row" fxLayoutAlign="space-betweeen center">
             <div fxLayout="column" fxLayoutGap="2px">
