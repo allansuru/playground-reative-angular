@@ -4,6 +4,7 @@ import { User } from '../model/user';
 import { map, shareReplay, tap } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { HttpApiService } from './http-api.service';
+import { ThrowStmt } from '@angular/compiler';
 
 const AUTH_DATA = "auth_data";
 
@@ -31,6 +32,10 @@ export class AuthStore {
             this.subject.next(JSON.parse(user));
         }
 
+    }
+
+    register(payload: User): Observable<User> {
+        return this.api.post('register', payload);
     }
 
 

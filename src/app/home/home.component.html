@@ -1,8 +1,5 @@
-
-<div class="courses-panel">
-
-        <h3>All Courses</h3>
-
+<content-card [title]="'Cursos'" [subtitle]="'Lista de cursos básicos e vançados'">
+    <div class="courses-panel" main-content>
         <mat-tab-group>
 
             <mat-tab label="Beginners">
@@ -13,18 +10,19 @@
 
             </mat-tab>
 
-        <mat-tab label="Advanced">
+            <mat-tab label="Advanced">
 
-            <courses-card-list [courses]="advancedCourses$ | async">
+                <courses-card-list [courses]="advancedCourses$ | async">
 
-            </courses-card-list>
-
-
-        </mat-tab>
-
-    </mat-tab-group>
+                </courses-card-list>
 
 
+            </mat-tab>
 
-</div>
+        </mat-tab-group>
 
+
+
+    </div>
+
+</content-card>

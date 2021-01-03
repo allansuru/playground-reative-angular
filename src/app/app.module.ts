@@ -37,6 +37,7 @@ import { CoursesCardListComponent } from './courses-card-list/courses-card-list.
 import { LoadingService } from './loading/loading.service';
 import { MessagesService } from './messages/messages.service';
 import { RegisterModule } from './modules/register/register.module';
+import { ContentCardModule } from './core/content-card/content-card.module';
 
 
 @NgModule({
@@ -80,6 +81,7 @@ import { RegisterModule } from './modules/register/register.module';
     MatMomentDateModule,
     ReactiveFormsModule,
     RegisterModule,
+    ContentCardModule
 
   ],
   providers: [

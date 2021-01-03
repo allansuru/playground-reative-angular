@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
+import { AuthStore } from '../../../services/auth.store';
+import { MessagesService } from '../../../messages/messages.service';
+import { filter, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'register-user',
@@ -12,6 +15,8 @@ export class RegisterUserComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
+    private authStore: AuthStore,
+    private messageService: MessagesService,
   ) {
 
     this.form = fb.group({
@@ -23,6 +28,13 @@ export class RegisterUserComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  register() {
+    this.authStore.register(this.form.value).pipe(
+      filter(save => !!save.email),
+      tap(() => this.messageService.showSuccess('Usuário salvo com sucesso!'))
+    ).subscribe()
   }
 
 }

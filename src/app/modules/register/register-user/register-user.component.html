@@ -1,6 +1,7 @@
 <content-card [title]="'Novo registro'" [subtitle]="'Registre aqui seu novo usuário'">
     <div menu-buttons>
-        <button matTooltip="Editar opção" mat-button color="primary" [disabled]="form.invalid || form.pristine">
+        <button matTooltip="Editar opção" mat-button color="primary" [disabled]="form.invalid || form.pristine"
+            (click)="register()">
             <mat-icon class="mr-2">add</mat-icon>
             <span> Adicionar item</span>
         </button>
