@@ -36,6 +36,8 @@ import { LoadingComponent } from './loading/loading.component';
 import { CoursesCardListComponent } from './courses-card-list/courses-card-list.component';
 import { LoadingService } from './loading/loading.service';
 import { MessagesService } from './messages/messages.service';
+import { RegisterModule } from './modules/register/register.module';
+
 
 @NgModule({
   declarations: [
@@ -50,7 +52,8 @@ import { MessagesService } from './messages/messages.service';
     MessagesComponent,
     SearchLessonsComponent,
     LoadingComponent,
-    CoursesCardListComponent
+    CoursesCardListComponent,
+
 
   ],
   imports: [
@@ -75,7 +78,9 @@ import { MessagesService } from './messages/messages.service';
     MatSelectModule,
     MatDatepickerModule,
     MatMomentDateModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RegisterModule,
+
   ],
   providers: [
     LoadingService,

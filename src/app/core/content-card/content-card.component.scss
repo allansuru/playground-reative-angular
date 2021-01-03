@@ -1,0 +1,9 @@
+:host {
+    .card-main-content {
+        .content-card-header {
+            ::ng-deep .mat-card-header-text {
+              margin-left: 0;
+            }
+          }
+    }
+}
