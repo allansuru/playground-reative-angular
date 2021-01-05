@@ -28,6 +28,10 @@
                 .hasError('required')"> password obrigatório</mat-error>
                 <mat-error *ngIf="form
                 .get('password')
+                .hasError('passwordStrenght')"> password deve ter ao menos uma letra maiúscula, uma letra minúscula e
+                    um número</mat-error>
+                <mat-error *ngIf="form
+                .get('password')
                 .hasError('minlength')"> o password mínimo é de 3, atualmente {{pass.value.length}}</mat-error>
             </mat-form-field>
 

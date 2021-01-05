@@ -29,7 +29,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { LoginComponent } from './login/login.component';
 import { LessonComponent } from './lesson/lesson.component';
-import { SafeUrlPipe } from './common/safe-url.pipe';
+import { SafeUrlPipe } from './core/common/safe-url.pipe';
 import { MessagesComponent } from './messages/messages.component';
 import { SearchLessonsComponent } from './search-lessons/search-lessons.component';
 import { LoadingComponent } from './loading/loading.component';

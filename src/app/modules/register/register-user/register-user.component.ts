@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthStore } from '../../../services/auth.store';
 import { MessagesService } from '../../../messages/messages.service';
 import { filter, tap } from 'rxjs/operators';
+import { confirmPasswordValidator } from '../../../core/common/confirm-password.validator';
+import { createPasswordStrengthValidator } from '../../../core/common/password-strength.validator';
+
 
 @Component({
   selector: 'register-user',
@@ -21,7 +24,7 @@ export class RegisterUserComponent implements OnInit {
 
     this.form = fb.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required]],
+      password: ['', [Validators.required, createPasswordStrengthValidator]],
       passwordConfirm: ['', [Validators.required, confirmPasswordValidator]]
     }, { updateOn: 'blur' });
 
@@ -47,28 +50,3 @@ export class RegisterUserComponent implements OnInit {
   }
 
 }
-
-export const confirmPasswordValidator: ValidatorFn = (
-  control: AbstractControl
-): ValidationErrors | null => {
-  if (!control.parent || !control) {
-    return null;
-  }
-
-  const password = control.parent.get('password');
-  const passwordConfirm = control.parent.get('passwordConfirm');
-
-  if (!password || !passwordConfirm) {
-    return null;
-  }
-
-  if (passwordConfirm.value === '') {
-    return null;
-  }
-
-  if (password.value === passwordConfirm.value) {
-    return null;
-  }
-
-  return { passwordsNotMatching: true };
-};
