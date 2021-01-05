@@ -21,8 +21,13 @@
 
             <mat-form-field appearance="outline">
                 <mat-label>Password</mat-label>
-                <input matInput type="password" placeholder="Password" formControlName="password">
-                <mat-error> password obrigatório</mat-error>
+                <input #pass minlength="3" matInput type="password" placeholder="Password" formControlName="password">
+                <mat-error *ngIf="form
+                .get('password')
+                .hasError('required')"> password obrigatório</mat-error>
+                <mat-error *ngIf="form
+                .get('password')
+                .hasError('minlength')"> o password mínimo é de 3, atualmente {{pass.value.length}}</mat-error>
             </mat-form-field>
 
             <mat-form-field appearance="outline">
