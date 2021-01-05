@@ -12,7 +12,8 @@
 
             <mat-form-field appearance="outline">
                 <mat-label>Email</mat-label>
-                <input matInput type="email" placeholder="Email" formControlName="email">
+                <input matInput type="email" placeholder="Email" formControlName="email"
+                    (ngModelChange)="onEmailChange($event)">
                 <mat-error *ngIf="form.get('email').hasError('required')"> email obrigatório</mat-error>
                 <mat-error *ngIf="form.get('email').hasError('email')">
                     Por favor, entre com um email válido

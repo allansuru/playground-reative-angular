@@ -23,14 +23,23 @@ export class RegisterUserComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
       passwordConfirm: ['', [Validators.required, confirmPasswordValidator]]
-    });
+    }, { updateOn: 'blur' });
 
+  }
+
+  get email() {
+    return this.form.get('email');
   }
 
   ngOnInit(): void {
   }
 
+  onEmailChange(change): void {
+    console.log(change)
+  }
+
   register() {
+    console.log(this.email.value);
     this.authStore.register(this.form.value).pipe(
       filter(save => !!save.email),
       tap(() => this.messageService.showSuccess('Usuário salvo com sucesso!'))
