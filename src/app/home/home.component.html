@@ -1,4 +1,11 @@
 <content-card [title]="'Cursos'" [subtitle]="'Lista de cursos básicos e vançados'">
+
+    <div menu-buttons>
+        <button matTooltip="Editar opção" mat-button color="primary" (click)="addCourse()">
+            <mat-icon class="mr-2">add</mat-icon>
+            <span> Adicionar Curso</span>
+        </button>
+    </div>
     <div class="courses-panel" main-content>
         <mat-tab-group>
 

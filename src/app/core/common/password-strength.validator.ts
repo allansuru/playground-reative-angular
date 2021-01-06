@@ -3,7 +3,7 @@ import { ValidatorFn, AbstractControl, ValidationErrors } from "@angular/forms";
 
 export const createPasswordStrengthValidator: ValidatorFn = (
     (control: AbstractControl): ValidationErrors | null => {
-        debugger
+
         const value = control.value;
 
         if (!value) {

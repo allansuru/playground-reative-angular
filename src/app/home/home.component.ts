@@ -3,6 +3,8 @@ import { Course } from '../model/course';
 import { Observable } from 'rxjs';
 import { CoursesStore } from '../services/courses.store';
 import { tap } from 'rxjs/operators';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { CourseDialogComponent } from '../course-dialog/course-dialog.component';
 
 
 @Component({
@@ -17,12 +19,25 @@ export class HomeComponent implements OnInit {
 
   advancedCourses$: Observable<Course[]>;
 
-  constructor(private coursesStore: CoursesStore) {
+  constructor(private coursesStore: CoursesStore, private dialog: MatDialog) {
 
   }
 
   ngOnInit() {
     this.reloadCourses();
+  }
+
+  addCourse() {
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = "400px";
+    dialogConfig.data = {
+      id: null
+    }
+
+    const dialogRef = this.dialog.open(CourseDialogComponent, dialogConfig);
   }
 
   reloadCourses() {

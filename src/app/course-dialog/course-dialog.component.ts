@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Inject } from '@angular/core';
+import { AfterViewInit, Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { Course } from "../model/course";
 import { FormBuilder, Validators, FormGroup } from "@angular/forms";
@@ -19,7 +19,7 @@ import { CoursesStore } from '../services/courses.store';
         MessagesService
     ]
 })
-export class CourseDialogComponent {
+export class CourseDialogComponent implements OnInit {
 
     form: FormGroup;
 
@@ -30,18 +30,27 @@ export class CourseDialogComponent {
         private dialogRef: MatDialogRef<CourseDialogComponent>,
         @Inject(MAT_DIALOG_DATA) course: Course,
         private coursesStore: CoursesStore,
-        private messagesService: MessagesService) {
-
+    ) {
         this.course = course;
+    }
 
-        this.form = fb.group({
-            description: [course.description, Validators.required],
-            category: [course.category, Validators.required],
+    ngOnInit(): void {
+
+        if (this.course.id) {
+            this.form = this.fb.group({
+                description: [this.course.description, Validators.required],
+                category: [this.course.category, Validators.required],
+                releasedAt: [moment(), Validators.required],
+                longDescription: [this.course.longDescription, Validators.required]
+            });
+            return;
+        }
+        this.form = this.fb.group({
+            description: ['', Validators.required],
+            category: ['', Validators.required],
             releasedAt: [moment(), Validators.required],
-            longDescription: [course.longDescription, Validators.required]
+            longDescription: ['', Validators.required]
         });
-
-
     }
 
     save() {

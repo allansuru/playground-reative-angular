@@ -54,8 +54,6 @@ import { ContentCardModule } from './core/content-card/content-card.module';
     SearchLessonsComponent,
     LoadingComponent,
     CoursesCardListComponent,
-
-
   ],
   imports: [
     BrowserModule,

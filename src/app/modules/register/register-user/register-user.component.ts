@@ -24,7 +24,7 @@ export class RegisterUserComponent implements OnInit {
 
     this.form = fb.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, createPasswordStrengthValidator]],
+      password: ['', [Validators.required, createPasswordStrengthValidator, Validators.minLength(3)]],
       passwordConfirm: ['', [Validators.required, confirmPasswordValidator]]
     }, { updateOn: 'blur' });
 
@@ -32,6 +32,14 @@ export class RegisterUserComponent implements OnInit {
 
   get email() {
     return this.form.get('email');
+  }
+
+  get password() {
+    return this.form.get('password');
+  }
+
+  get passwordConfirm() {
+    return this.form.get('passwordConfirm');
   }
 
   ngOnInit(): void {
