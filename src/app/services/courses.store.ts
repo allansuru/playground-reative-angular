@@ -28,7 +28,7 @@ export class CoursesStore {
 
     }
 
-    private loadAllCourses() {
+    loadAllCourses() {
 
         const loadCourses$ = this.courseService.loadAllCourses()
             .pipe(

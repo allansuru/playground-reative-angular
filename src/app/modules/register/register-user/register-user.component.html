@@ -14,8 +14,8 @@
                 <mat-label>Email</mat-label>
                 <input matInput type="email" placeholder="Email" formControlName="email"
                     (ngModelChange)="onEmailChange($event)">
-                <mat-error *ngIf="email.hasError('required')"> email obrigatório</mat-error>
-                <mat-error *ngIf="email.hasError('email')">
+                <mat-error *ngIf="email.errors?.required"> email obrigatório</mat-error>
+                <mat-error *ngIf="email.errors?.email">
                     Por favor, entre com um email válido
                 </mat-error>
             </mat-form-field>
@@ -23,16 +23,12 @@
             <mat-form-field appearance="outline">
                 <mat-label>Password</mat-label>
                 <input #pass matInput type="password" placeholder="Password" formControlName="password">
-                <mat-error *ngIf="form
-                .get('password')
-                .hasError('required')"> password obrigatório</mat-error>
-                <mat-error *ngIf="form
-                .get('password')
-                .hasError('passwordStrenght')"> password deve ter ao menos uma letra maiúscula, uma letra minúscula e
+                <mat-error *ngIf="password.errors?.required"> password obrigatório</mat-error>
+                <mat-error *ngIf="password.errors?.passwordStrenght"> password deve ter ao menos uma letra maiúscula,
+                    uma letra minúscula e
                     um número</mat-error>
-                <mat-error *ngIf="form
-                .get('password')
-                .hasError('minlength')"> o password mínimo é de 3, atualmente {{pass.value.length}}</mat-error>
+                <mat-error *ngIf="password.errors?.minlength"> o password mínimo é de 3, atualmente
+                    {{pass.value.length}}</mat-error>
             </mat-form-field>
 
             <mat-form-field appearance="outline">
@@ -42,12 +38,8 @@
                 form.get('passwordConfirm').hasError('required')
               "> A confirmação do password é obrigatório</mat-error>
                 <mat-error *ngIf="
-                  !form
-                    .get('passwordConfirm')
-                    .hasError('required') &&
-                  form
-                    .get('passwordConfirm')
-                    .hasError('passwordsNotMatching')
+                  !passwordConfirm.errors?.required &&
+                  passwordConfirm.errors?.passwordsNotMatching
                 ">
                     As senhas devem corresponder
                 </mat-error>
