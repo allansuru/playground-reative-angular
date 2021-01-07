@@ -55,12 +55,11 @@
 
   <mat-dialog-actions>
 
-    <button class="mat-raised-button" (click)="close()">
+    <button mat-raised-button (click)="close()">
       Close
     </button>
 
-    <button class="mat-raised-button mat-primary" [disabled]="form.invalid || form.pristine" #saveButton
-      (click)="save()">
+    <button mat-raised-button color="primary" [disabled]="form.invalid" #saveButton (click)="save()">
       Save
     </button>
 

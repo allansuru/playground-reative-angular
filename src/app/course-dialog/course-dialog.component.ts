@@ -10,7 +10,11 @@ import { MessagesService } from '../messages/messages.service';
 import { CoursesStore } from '../services/courses.store';
 import { courseTitleValidator } from '../core/common/course-title.validator';
 import { CoursesService } from '../services/courses.service';
-import { tap } from 'rxjs/operators';
+import { tap, filter } from 'rxjs/operators';
+
+
+const NEW_USER_KEY = 'new-course';
+
 
 @Component({
     selector: 'course-dialog',
@@ -22,6 +26,7 @@ import { tap } from 'rxjs/operators';
 
     ]
 })
+
 export class CourseDialogComponent implements OnInit {
 
     form: FormGroup;
@@ -37,19 +42,6 @@ export class CourseDialogComponent implements OnInit {
         private messageService: MessagesService
     ) {
         this.course = course;
-    }
-
-    ngOnInit(): void {
-
-        if (this.course.id) {
-            this.form = this.fb.group({
-                description: [this.course.description, Validators.required],
-                category: [this.course.category, Validators.required],
-                releasedAt: [moment(), Validators.required],
-                longDescription: [this.course.longDescription, Validators.required]
-            });
-            return;
-        }
 
         this.form = this.fb.group({
             description: [
@@ -64,6 +56,23 @@ export class CourseDialogComponent implements OnInit {
             releasedAt: [moment(), Validators.required],
             longDescription: ['', Validators.required]
         });
+    }
+
+    ngOnInit(): void {
+
+        if (this.course.id) {
+            this.form.setValue({ ...this.course });
+            return;
+        }
+
+        if (localStorage.getItem(NEW_USER_KEY) !== null) {
+            this.form.setValue(JSON.parse(localStorage.getItem(NEW_USER_KEY)));
+            return;
+        }
+
+        this.form.valueChanges.pipe(
+            filter(() => this.form.valid)
+        ).subscribe((val) => localStorage.setItem(NEW_USER_KEY, JSON.stringify(val)));
     }
 
     get title() {
@@ -88,7 +97,7 @@ export class CourseDialogComponent implements OnInit {
             .subscribe();
 
 
-
+        localStorage.removeItem(NEW_USER_KEY);
     }
 
     close() {
