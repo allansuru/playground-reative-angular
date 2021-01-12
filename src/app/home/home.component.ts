@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit {
 
   advancedCourses$: Observable<Course[]>;
 
-  constructor(private coursesStore: CoursesStore, private dialog: MatDialog) {
+  constructor(public coursesStore: CoursesStore, private dialog: MatDialog) {
 
   }
 
@@ -46,6 +46,10 @@ export class HomeComponent implements OnInit {
 
 
     this.advancedCourses$ = this.coursesStore.filterByCategory("ADVANCED");
+  }
+
+  editName(name: string): void {
+    this.coursesStore.editUserTest(name);
   }
 
 }

@@ -5,7 +5,6 @@ import { catchError, map, shareReplay, tap } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { LoadingService } from '../loading/loading.service';
 import { MessagesService } from '../messages/messages.service';
-import { HttpApiService } from './http-api.service';
 import { CoursesService } from './courses.service';
 
 
@@ -18,6 +17,9 @@ export class CoursesStore {
 
     courses$: Observable<Course[]> = this.subject.asObservable();
 
+    private subjectUser = new BehaviorSubject<string>('Allan');
+    userTest$: Observable<string> = this.subjectUser.asObservable();
+
     constructor(
         private http: HttpClient,
         private courseService: CoursesService,
@@ -28,11 +30,16 @@ export class CoursesStore {
 
     }
 
+    editUserTest(newUser: string): void {
+        this.subjectUser.next(newUser);
+    }
+
     loadAllCourses() {
 
         const loadCourses$ = this.courseService.loadAllCourses()
             .pipe(
                 tap(courses => {
+
                     return this.subject.next(courses);
                 })
             );

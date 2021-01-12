@@ -7,6 +7,9 @@
         </button>
     </div>
     <div class="courses-panel" main-content>
+        OI {{coursesStore.userTest$ | async}}
+        <input matInput placeholder="Novo Nome" #newName>
+        <button mat-button (click)="editName(newName.value)">Mudar</button>
         <mat-tab-group>
 
             <mat-tab label="Beginners">
