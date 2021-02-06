@@ -16,8 +16,18 @@ export class FormComponentsAComponent implements OnInit {
 
   constructor(private formComponentsService: FormComponentsService) { }
 
+  get name() {
+    return this.form.get('nameA');
+  }
+
+  get description() {
+    return this.form.get('descriptionA');
+  }
+
   ngOnInit() {
   }
+
+
 
   nextHandler() {
     this.formComponentsService.dispatchAction({

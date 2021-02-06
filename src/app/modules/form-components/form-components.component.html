@@ -1,8 +1,8 @@
 <content-card [title]="'Form Dinâmico'" [subtitle]="'Form Dinamico entre componentes'">
 
-  <div main-content>
+  <div class="content" main-content>
     <ng-container *ngIf="selectedComponent$ | async as component">
-      <form name="formComponents" [formGroup]="form">
+      <form name="formComponents" [formGroup]="form" class="w-100-p" fxLayout="column" fxFlex>
         <app-form-components-A [form]="form" *ngIf="FormComponentsEnum.COMPONENT_A === component">
         </app-form-components-A>
         <app-form-components-B [form]="form" *ngIf="FormComponentsEnum.COMPONENT_B === component">

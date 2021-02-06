@@ -3,15 +3,15 @@
     <mat-card-title>Component B</mat-card-title>
   </mat-card-header>
   <mat-card-content>
-    <mat-form-field>
+    <mat-form-field appearance="outline" floatLabel="always">
       <input matInput placeholder="Nome B" formControlName="nameB">
     </mat-form-field>
-    <mat-form-field>
+    <mat-form-field appearance="outline" floatLabel="always">
       <input matInput placeholder="Descrição B" formControlName="descriptionB">
     </mat-form-field>
   </mat-card-content>
   <mat-card-actions>
-    <button mat-raised-button (click)="saveHandler()">Salvar</button>
+    <button mat-raised-button [disabled]="form.invalid" (click)="saveHandler()">Salvar</button>
     <button mat-raised-button (click)="backHandler()">Voltar</button>
   </mat-card-actions>
 </mat-card>
