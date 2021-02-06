@@ -38,6 +38,11 @@ import { LoadingService } from './loading/loading.service';
 import { MessagesService } from './messages/messages.service';
 import { RegisterModule } from './modules/register/register.module';
 import { ContentCardModule } from './core/content-card/content-card.module';
+import { StoreModule } from '@ngrx/store';
+import { reducers, metaReducers } from './reducers';
+import { environment } from '../environments/environment';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 
 @NgModule({
@@ -79,7 +84,19 @@ import { ContentCardModule } from './core/content-card/content-card.module';
     MatMomentDateModule,
     ReactiveFormsModule,
     RegisterModule,
-    ContentCardModule
+    ContentCardModule,
+    StoreModule.forRoot(reducers, {
+      metaReducers,
+      runtimeChecks: {
+        strictStateImmutability: true,
+        strictActionImmutability: true
+      }
+    }),
+    EffectsModule.forRoot([]),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly: environment.production
+    })
 
   ],
   providers: [

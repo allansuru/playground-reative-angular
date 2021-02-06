@@ -34,6 +34,10 @@ const routes: Routes = [
       import('./modules/register/register.module').then((m) => m.RegisterModule),
   },
   {
+    path: 'form-components',
+    loadChildren: () => import('./modules/form-components/form-components.module').then((m) => m.FormComponentsModule)
+  },
+  {
     path: '**',
     redirectTo: '/'
   }
