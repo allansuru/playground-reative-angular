@@ -37,7 +37,7 @@ const FormComponentsReducer = createReducer(
 
   on(FormComponentsActions.changeComponent, (state, action) => ({
     ...state,
-    ...{ loading: false, error: action.component }
+    ...{ loading: false, component: action.component }
   })),
 
 );

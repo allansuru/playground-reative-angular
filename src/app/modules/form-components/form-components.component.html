@@ -1,8 +1,15 @@
 <content-card [title]="'Form Dinâmico'" [subtitle]="'Form Dinamico entre componentes'">
 
   <div main-content>
-    <app-form-components-A></app-form-components-A>
-    <app-form-components-B></app-form-components-B>
+    <ng-container *ngIf="selectedComponent$ | async as component">
+      <form name="formComponents" [formGroup]="form">
+        <app-form-components-A [form]="form" *ngIf="FormComponentsEnum.COMPONENT_A === component">
+        </app-form-components-A>
+        <app-form-components-B [form]="form" *ngIf="FormComponentsEnum.COMPONENT_B === component">
+        </app-form-components-B>
+      </form>
+    </ng-container>
+
   </div>
 
 

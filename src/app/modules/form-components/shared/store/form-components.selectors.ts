@@ -16,6 +16,6 @@ export const selectProductById = (id: string) =>
   createSelector(selectFormComponentsState, state => state.entities[id]);
 
 
-export const selectProductLoading = createSelector(selectFormComponentsState, state => state.loading);
-export const selectProductSavedOk = createSelector(selectFormComponentsState, state => state.savedOk);
-export const selectSelectedProduct = createSelector(selectFormComponentsState, state => state.component);
+export const selectFormComponentsLoading = createSelector(selectFormComponentsState, state => state.loading);
+export const selectFormComponentsSavedOk = createSelector(selectFormComponentsState, state => state.savedOk);
+export const selectSelectedFormComponents = createSelector(selectFormComponentsState, state => state.component);
