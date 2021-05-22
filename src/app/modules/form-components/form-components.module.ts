@@ -16,6 +16,7 @@ import { FormComponentsEffects } from './shared/store/form-components.effects';
 
 import * as fromFormComponents from './shared/store/form-components.reducer';
 import { MatInputModule } from '@angular/material/input';
+import { HighlightMouseDirective } from './shared/directives/highlight-mouse.directive';
 
 @NgModule({
   imports: [
@@ -27,8 +28,9 @@ import { MatInputModule } from '@angular/material/input';
     StoreModule.forFeature(fromFormComponents.FormComponentsFeatureKey, fromFormComponents.reducer),
     EffectsModule.forFeature([FormComponentsEffects]),
     MatInputModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+
   ],
-  declarations: [FormComponentsComponent, FormComponentsAComponent, FormComponentsBComponent]
+  declarations: [FormComponentsComponent, FormComponentsAComponent, FormComponentsBComponent, HighlightMouseDirective]
 })
 export class FormComponentsModule { }

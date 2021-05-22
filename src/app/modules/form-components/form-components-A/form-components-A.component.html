@@ -11,7 +11,7 @@
     </mat-form-field>
   </mat-card-content>
   <mat-card-actions>
-    <button mat-raised-button [disabled]="name.value == '' || description.value == '' "
+    <button mat-raised-button highlightMouse [disabled]="name.value == '' || description.value == '' "
       (click)="nextHandler()">Avançar</button>
   </mat-card-actions>
 </mat-card>
