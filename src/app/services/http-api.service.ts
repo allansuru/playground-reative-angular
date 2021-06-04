@@ -24,7 +24,7 @@ export class HttpApiService {
 
     return new Observable((observer) => {
       this.http
-        .get<payloadT>(`${environment.baseUrl}/${endPointUrl}`, {
+        .get<payloadT>(`${environment.baseUrl}${endPointUrl}`, {
           params,
         })
         .pipe(map(response => response["payload"]), shareReplay(), catchError((error) => this.handlerError(error)))

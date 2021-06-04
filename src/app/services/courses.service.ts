@@ -7,45 +7,42 @@ import { HttpApiService } from './http-api.service';
 
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
 export class CoursesService {
 
-    constructor(private apiService: HttpApiService) {
+  constructor(private apiService: HttpApiService) {
 
-    }
-
-
-    loadCourseById = (courseId: number) => this.apiService.get(`courses/${courseId}`)
+  }
 
 
-    loadAllCourseLessons = (courseId: number): Observable<Lesson[]> =>
-        this.apiService.get<Lesson[]>('lessons', {
-            pageSize: "10000",
-            courseId: courseId.toString()
-        })
+  loadCourseById = (courseId: number) => this.apiService.get<Course>(`courses/${courseId}`)
 
 
-
-    loadAllCourses = (): Observable<Course[]> => this.apiService.get<Course[]>('courses');
+  loadAllCourseLessons = (courseId: number): Observable<Lesson[]> =>
+    this.apiService.get<Lesson[]>('lessons', {
+      pageSize: "10000",
+      courseId: courseId.toString()
+    })
 
 
 
-    saveCourse(courseId: string, changes: Partial<Course>): Observable<any> {
-        return this.apiService.put(`courses/${courseId}`, changes);
-    }
-
-
-    searchLessons(search: string): Observable<Lesson[]> {
-        return this.apiService.get<Lesson[]>('lessons', {
-            filter: search,
-            pageSize: "100"
-
-        })
-    }
+  loadAllCourses = (): Observable<Course[]> => this.apiService.get<Course[]>('courses');
 
 
 
+  saveCourse(courseId: string, changes: Partial<Course>): Observable<any> {
+    return this.apiService.put(`courses/${courseId}`, changes);
+  }
+
+
+  searchLessons(search: string): Observable<Lesson[]> {
+    return this.apiService.get<Lesson[]>('lessons', {
+      filter: search,
+      pageSize: "100"
+
+    })
+  }
 
 }
 
