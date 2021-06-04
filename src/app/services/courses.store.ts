@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { LoadingService } from '../loading/loading.service';
 import { MessagesService } from '../messages/messages.service';
 import { CoursesService } from './courses.service';
+import { Lesson } from '../model/lesson';
 
 
 @Injectable({
@@ -39,7 +40,6 @@ export class CoursesStore {
     const loadCourses$ = this.courseService.loadAllCourses()
       .pipe(
         tap(courses => {
-
           return this.subject.next(courses);
         })
       );
@@ -48,6 +48,18 @@ export class CoursesStore {
       .subscribe();
 
   }
+
+
+  loadAllCourseLessons(courseId: number): Observable<Lesson[]> {
+
+    const loadAllCourseLessons$ = this.courseService.loadAllCourseLessons(courseId);
+
+    this.loading.showLoaderUntilCompleted(loadAllCourseLessons$).subscribe();
+
+    return loadAllCourseLessons$;
+
+  }
+
 
   saveCourse(courseId: string, changes: Partial<Course>): Observable<any> {
 

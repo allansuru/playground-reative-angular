@@ -29,8 +29,6 @@ export class CoursesService {
 
   loadAllCourses = (): Observable<Course[]> => this.apiService.get<Course[]>('courses');
 
-
-
   saveCourse(courseId: string, changes: Partial<Course>): Observable<any> {
     return this.apiService.put(`courses/${courseId}`, changes);
   }
