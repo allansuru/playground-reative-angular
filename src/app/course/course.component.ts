@@ -54,16 +54,10 @@ export class CourseComponent implements OnInit {
 
     this.data$ = combineLatest([course$, lessons$])
       .pipe(
-        map(([course, lessons]) => {
-          const filteredLessonByIdCourse = lessons.filter((l) => l.courseId === course[0].id);
-          debugger
-          return {
-            course,
-            lessons: filteredLessonByIdCourse
-          }
-        }
-
-        ),
+        map(([course, lessons]) => ({
+          course,
+          lessons: lessons.filter((l) => l.courseId === course[0].id)
+        } as CourseData)),
         tap(console.log)
       );
 
